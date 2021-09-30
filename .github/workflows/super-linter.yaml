@@ -25,6 +25,8 @@ on:
       - main
   # runs on pushed commits to any PR
   pull_request:
+  # allow reuse of this workflow in other repos
+  workflow_call:
 
 
 permissions:
