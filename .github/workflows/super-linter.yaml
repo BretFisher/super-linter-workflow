@@ -1,0 +1,115 @@
+---
+# origional template from: https://github.com/bretfisher/super-linter-example/blob/main/.github/workflows/super-linter.yaml
+
+###########################
+###########################
+## Linter GitHub Actions ##
+###########################
+###########################
+name: Lint all the codes!
+
+#
+# Documentation:
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+#
+
+#############################
+# lint on push to release/main branches
+# also lint on all pushes to PRs
+#############################
+on:
+  # runs when PRs are merged, or pushes directly to these branches
+  # if you have multiple release branches, add them to push
+  push:
+    branches:
+      - main
+  # runs on pushed commits to any PR
+  pull_request:
+
+
+permissions:
+  actions: none
+  checks:  none             #add custom pass/fail checks to the PR
+  contents: read            #git permissions to repo pull/push
+  deployments: none
+  issues: none              #read/write to repo Issues
+  packages: none            #read/write to repo Packages (ghcr, gems, npm)
+  pull-requests: none       #read/write to repo PRs
+  repository-projects: none
+  security-events: none     #read/write to repo Security tab API
+  statuses: write           #read/write to repo custom statuses and checks
+
+
+jobs:
+  super-lint:
+    # Name the Job
+    name: Super-Linter
+
+    # Set the agent to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2.3.4
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
+
+      #############################
+      # custom DEFAULT_BRANCH for repos where PR target isn't always main/master
+      #############################
+      - name: Set DEFAULT_BRANCH to PR target
+        # if base_ref has a value, this is a PR
+        # we save the PR target branch name to a variable for use in linter config
+        # we pass string between job steps by echoing to $GITHUB_ENV, making it available in $env later
+        if: ${{ github.base_ref != '' }}
+        run: |
+          # shellcheck disable=2086
+          echo "DEFAULT_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+          echo "this is a PR branch. Let's only lint the files that are changed against the target branch '${{ github.base_ref }}'"
+
+      - name: Set DEFAULT_BRANCH to current branch
+        # if base_ref has no value, this is just a commit on a branch
+        # we need to strip refs/heads from github.ref to find the current branch name
+        # then save the current branch name to a variable for use in linter config later
+        # we pass strings between job steps by echoing to $GITHUB_ENV, making it available in $env later
+        if: ${{ github.base_ref == '' }}
+        run: |
+          # shellcheck disable=2086
+          echo "DEFAULT_BRANCH=$(echo '${{ github.ref }}' | sed 's/refs\/heads\///')" >> $GITHUB_ENV
+          echo "this is just a branch push, not a PR."
+
+      # used as a debug step to ensure we're only linting all files on release branches
+      - name: Are we linting all files?
+        run: |
+          echo VALIDATE_ALL_CODEBASE=${{ !contains(github.event_name, 'pull_request') }}
+
+      #############################
+      # Run many Linters against changed files on PRs, and ALL files on commit to release branch
+      #############################
+      # https://github.com/marketplace/actions/super-linter
+      - name: Lint Code Base
+        uses: github/super-linter@v4.8.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # by default super-linter assumes our repo default branch doesn't change
+          # and it also assumes our PRs are always against that default branch
+          # for multi-trunk (releases) repos, this get the base branch from the previous steps
+          # see issue https://github.com/github/super-linter/issues/1123
+          DEFAULT_BRANCH: ${{ env.DEFAULT_BRANCH }}
+          # setting this to false means that only changed files will be scanned in each commit
+          VALIDATE_ALL_CODEBASE: ${{ !contains(github.event_name, 'pull_request') }}
+          # turn off dockerfilelint, as its a dead project
+          # https://github.com/replicatedhq/dockerfilelint/issues/169
+          # hadolint will still run and is sufficient (no need for two linters)
+          VALIDATE_DOCKERFILE: false
+          # turn off JSCPD copy/paste detection, which results in lots of results for examples and devops repos
+          VALIDATE_JSCPD: false
+          # turn off shfmt shell formatter as we already have shellcheck
+          VALIDATE_SHELL_SHFMT: false
+          # editorconfig is great, but...
+          # editorconfig-linter is rather generic and file-specific linters are better
+          # turn off editorconfig-checker, which flags too many false positives
+          VALIDATE_EDITORCONFIG: false
+          # prevent Kubernetes CRD API's from causing kubeval to fail
+          KUBERNETES_KUBEVAL_OPTIONS: --ignore-missing-schemas
