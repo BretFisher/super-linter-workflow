@@ -1,12 +1,12 @@
 ---
-# origional template from: https://github.com/bretfisher/super-linter-example/blob/main/.github/workflows/super-linter.yaml
+# original template from: https://github.com/bretfisher/super-linter-example/blob/main/.github/workflows/super-linter.yaml
 
 ###########################
 ###########################
 ## Linter GitHub Actions ##
 ###########################
 ###########################
-name: Lint all the codes!
+name: Lint all the codes
 
 #
 # Documentation:
@@ -31,15 +31,15 @@ on:
 
 permissions:
   actions: none
-  checks:  none             #add custom pass/fail checks to the PR
-  contents: read            #git permissions to repo pull/push
+  checks: none              # add custom pass/fail checks to the PR
+  contents: read            # git permissions to repo pull/push
   deployments: none
-  issues: none              #read/write to repo Issues
-  packages: none            #read/write to repo Packages (ghcr, gems, npm)
-  pull-requests: none       #read/write to repo PRs
+  issues: none              # read/write to repo Issues
+  packages: none            # read/write to repo Packages (ghcr, gems, npm)
+  pull-requests: none       # read/write to repo PRs
   repository-projects: none
-  security-events: none     #read/write to repo Security tab API
-  statuses: write           #read/write to repo custom statuses and checks
+  security-events: none     # read/write to repo Security tab API
+  statuses: write           # read/write to repo custom statuses and checks
 
 
 jobs:
