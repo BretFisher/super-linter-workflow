@@ -34,6 +34,6 @@ jobs:
 
 ## How to run Super-Linter locally
 
-Option 1: Use [nektos/act](https://github.com/nektos/act) to run an existing GitHub Action workflow on your local repo clone.
+Option 1: Use [nektos/act](https://github.com/nektos/act) to run an existing GitHub Action workflow on your local repository clone.
 
 Option 2: Use Docker to [run the Super-Linter image directly](https://github.com/github/super-linter/blob/main/docs/run-linter-locally.md).
