@@ -2,7 +2,7 @@
 
 The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) project is a fantastic way to lint all your file types with a single GitHub Actions Workflow. A great way to implement it everywhere is to use GHA's [Reusable Workflows](https://docs.github.com/en/actions/learn-github-actions/reusing-workflows) (see below).
 
-[My video walkthrough of this repo](https://youtu.be/aXZgQM8DqXg)
+[My video walkthrough of this repository](https://youtu.be/aXZgQM8DqXg)
 
 ## Features of this Super-Linter example
 
@@ -12,8 +12,8 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 
 ## How to reuse this example as a *Reusable* Workflow
 
-1. Fork this repo for you to customize your linters
-2. Add a workflow to all your other repos that calls your linter workflow using GitHub's "Reusable Workflow"
+1. Fork this repository for you to customize your linters
+2. Add a workflow to all your other repositories that calls your linter workflow using GitHub's "Reusable Workflow"
 3. Add something similar to this to those workflows:
 
 ```yaml
@@ -28,7 +28,7 @@ on:
 
 jobs:
   call-super-linter:
-    #customize uri to point to your forked linter repo
+    #customize uri to point to your forked linter repository
     uses: bretfisher/super-linter-workflow/.github/workflows/super-linter.yaml@main
 ```
 
