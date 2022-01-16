@@ -115,7 +115,15 @@ jobs:
             echo "VALIDATE_CSS=false"; 
             echo "VALIDATE_HTML=false"; 
             echo "VALIDATE_JAVASCRIPT_ES=false";
+            echo "VALIDATE_TYPESCRIPT_ES=false";
+            echo "VALIDATE_TYPESCRIPT_STANDARD=false";
             echo "VALIDATE_JAVASCRIPT_STANDARD=false";
+            echo "VALIDATE_PYTHON_MYPY=false";
+            echo "VALIDATE_PYTHON_BLACK=false";
+            echo "VALIDATE_RUBY=false";
+            echo "VALIDATE_PHP=false";
+            echo "VALIDATE_CSHARP=false";
+
           } >> $GITHUB_ENV
 
       #############################
