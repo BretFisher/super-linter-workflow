@@ -29,6 +29,7 @@ on:
   workflow_call:
     inputs:
       devops-only:
+        description: For a DevOps-focused repository. Prevents some code-language linters from running
         required: false
         type: boolean
         default: false
@@ -96,6 +97,7 @@ jobs:
       - name: Disable non-DevOps linters
         if: ${{ inputs.devops-only == true }}
         run: |
+          # shellcheck disable=2086
           echo "VALIDATE_CSS=false" >> $GITHUB_ENV
           echo "VALIDATE_HTML=false" >> $GITHUB_ENV
           echo "VALIDATE_JAVASCRIPT_ES=false" >> $GITHUB_ENV
