@@ -1,4 +1,4 @@
-# Super Linter Reusable Workflow Example
+# Super Linter Reusable Workflow Examples
 
 [![Lint all the codes](https://github.com/BretFisher/super-linter-workflow/actions/workflows/super-linter.yaml/badge.svg)](https://github.com/BretFisher/super-linter-workflow/actions/workflows/super-linter.yaml)
 
@@ -6,10 +6,11 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 
 [My video walkthrough of this repository](https://youtu.be/aXZgQM8DqXg)
 
-## Features of this Super-Linter example
+## Features of this custom Super-Linter example
 
-- All the features of Super-Linter in a Workflow
-- Bonus: Added Job steps to correctly determine which branch to diff files with
+- All the features of [Super-Linter](https://github.com/marketplace/actions/super-linter) in a *Reusable* Workflow
+- Bonus: Optionally turn off non-DevOps linters (CSS, JS, HTML, etc.) when you want to ignore code (in my case it's to ignore sample code I stick in DevOps projects)
+- Bonus: I added Job steps to correctly determine which branch to diff files with (in the case of having multiple release branches)
 - Bonus: Lints only changed files on a PR, but lints all files on merge to main (or any release) branch
 
 ## How to reuse this example as a *Reusable* Workflow
@@ -30,7 +31,9 @@ on:
 
 jobs:
   call-super-linter:
-    #customize uri to point to your forked linter repository
+    # use Reusable Workflows to call my linter config remotely
+    # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
+    #FIXME: customize uri to point to your forked linter repository
     uses: bretfisher/super-linter-workflow/.github/workflows/super-linter.yaml@main
 ```
 

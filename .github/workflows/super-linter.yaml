@@ -27,6 +27,11 @@ on:
   pull_request:
   # allow reuse of this workflow in other repos
   workflow_call:
+    inputs:
+      devops-only:
+        required: false
+        type: boolean
+        default: false
 
 
 permissions:
@@ -85,6 +90,17 @@ jobs:
       - name: Are we linting all files?
         run: |
           echo VALIDATE_ALL_CODEBASE=${{ !contains(github.event_name, 'pull_request') }}
+
+      # disable non-DevOps focused linters that might run on sample code or 3rd party code
+      # these env's will get pass to the next step
+      - name: Disable non-DevOps linters
+        if: ${{ inputs.devops-only == true }}
+        run: |
+          echo "VALIDATE_CSS=false" >> $GITHUB_ENV
+          echo "VALIDATE_HTML=false" >> $GITHUB_ENV
+          echo "VALIDATE_JAVASCRIPT_ES=false" >> $GITHUB_ENV
+          echo "VALIDATE_JAVASCRIPT_STANDARD=false" >> $GITHUB_ENV
+          
 
       #############################
       # Run many Linters against changed files on PRs, and ALL files on commit to release branch
