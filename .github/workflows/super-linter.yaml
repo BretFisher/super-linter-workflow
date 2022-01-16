@@ -33,6 +33,10 @@ on:
         required: false
         type: boolean
         default: false
+      filter-regex-exclude:
+        description: A regex to exclude files from linting
+        required: false
+        type: string
 
 
 permissions:
@@ -91,6 +95,15 @@ jobs:
       - name: Are we linting all files?
         run: |
           echo VALIDATE_ALL_CODEBASE=${{ !contains(github.event_name, 'pull_request') }}
+
+      # customize excluded paths and files with regex
+      - name: FILTER_REGEX_EXCLUDE
+        if: ${{ inputs.filter-regex-exclude }}
+        run: |
+          # shellcheck disable=2086
+          {
+            echo "FILTER_REGEX_EXCLUDE=${{ inputs.filter-regex-exclude }}" >> $GITHUB_ENV
+          }
 
       # disable non-DevOps focused linters that might run on sample code or 3rd party code
       # these env's will get pass to the next step
