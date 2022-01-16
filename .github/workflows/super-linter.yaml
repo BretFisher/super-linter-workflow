@@ -97,9 +97,13 @@ jobs:
       - name: Disable non-DevOps linters
         if: ${{ inputs.devops-only == true }}
         run: |
-          # shellcheck disable=2086,SC2129
-          echo "VALIDATE_CSS=false"; echo "VALIDATE_HTML=false"; >> $GITHUB_ENV
-          echo "VALIDATE_JAVASCRIPT_ES=false";echo "VALIDATE_JAVASCRIPT_STANDARD=false"; >> $GITHUB_ENV
+          # shellcheck disable=2086
+          { 
+            echo "VALIDATE_CSS=false"; 
+            echo "VALIDATE_HTML=false"; 
+            echo "VALIDATE_JAVASCRIPT_ES=false";
+            echo "VALIDATE_JAVASCRIPT_STANDARD=false";
+          } >> $GITHUB_ENV
 
       #############################
       # Run many Linters against changed files on PRs, and ALL files on commit to release branch
