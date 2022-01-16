@@ -1,4 +1,6 @@
-# Super Linter Reusable Worklow Example
+# Super Linter Reusable Workflow Example
+
+[![Lint all the codes](https://github.com/BretFisher/super-linter-workflow/actions/workflows/super-linter.yaml/badge.svg)](https://github.com/BretFisher/super-linter-workflow/actions/workflows/super-linter.yaml)
 
 The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) project is a fantastic way to lint all your file types with a single GitHub Actions Workflow. A great way to implement it everywhere is to use GHA's [Reusable Workflows](https://docs.github.com/en/actions/learn-github-actions/reusing-workflows) (see below).
 
