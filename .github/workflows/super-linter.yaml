@@ -154,4 +154,6 @@ jobs:
           # turn off editorconfig-checker, which flags too many false positives
           VALIDATE_EDITORCONFIG: false
           # prevent Kubernetes CRD API's from causing kubeval to fail
-          KUBERNETES_KUBEVAL_OPTIONS: --ignore-missing-schemas
+          # also change schema location to an up-to-date list
+          # https://github.com/yannh/kubernetes-json-schema/#kubeval
+          KUBERNETES_KUBEVAL_OPTIONS: --ignore-missing-schemas --schema-location https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/
