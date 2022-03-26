@@ -8,16 +8,15 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 
 ## Features of this custom Super-Linter example
 
-- All the features of [Super-Linter](https://github.com/marketplace/actions/super-linter) in a *Reusable* Workflow
-- Bonus: Optionally turn off non-DevOps linters (CSS, JS, HTML, etc.) when you want to ignore code (in my case it's to ignore sample code I stick in DevOps projects)
-- Bonus: I added Job steps to correctly determine which branch to diff files with (in the case of having multiple release branches)
-- Bonus: Lints only changed files on a PR, but lints all files on merge to main (or any release) branch
+- All the features of [Super-Linter](https://github.com/marketplace/actions/super-linter) in a *Reusable* Workflow.
+- Bonus: Optionally turn off non-DevOps linters (CSS, JS, HTML, etc.) when you want to ignore code (in my case it's to ignore sample code I stick in DevOps projects).
+- Bonus: I added Job steps to correctly determine which branch to diff files with (in the case of having multiple release branches).
+- Bonus: Lints only changed files on a PR, but lints all files on merge to main (or any release) branch.
 
 ## How to reuse this example as a *Reusable* Workflow
 
-1. Fork this repository for you to customize your linters
-2. Add a workflow to all your other repositories that calls your linter workflow using GitHub's "Reusable Workflow"
-3. Add something similar to this to those workflows:
+1. Fork this repository for you to customize your linters in a single location for your org/projects.
+2. Add a new workflow to all your other repositories and paste in this YAML to call the central-repos reusable workflow. 
 
 ```yaml
 ---
