@@ -16,7 +16,7 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 ## How to reuse this example as a *Reusable* Workflow
 
 1. Fork this repository for you to customize your linters in a single location for your org/projects.
-2. Add a new workflow to all your other repositories and paste in this YAML to call the central-repos reusable workflow. 
+2. Add a new workflow to all your other repositories and paste in this YAML to call the central-repos reusable workflow.
 
 ```yaml
 ---
