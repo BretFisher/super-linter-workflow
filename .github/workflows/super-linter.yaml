@@ -1,5 +1,5 @@
 ---
-# original template from: https://github.com/bretfisher/super-linter-example/blob/main/.github/workflows/super-linter.yaml
+# original template from: https://github.com/bretfisher/super-linter-workflow/blob/main/.github/workflows/super-linter.yaml
 
 ###########################
 ###########################
@@ -13,19 +13,8 @@ name: Lint all the codes
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
 #
 
-#############################
-# lint on push to release/main branches
-# also lint on all pushes to PRs
-#############################
 on:
-  # runs when PRs are merged, or pushes directly to these branches
-  # if you have multiple release branches, add them to push
-  push:
-    branches:
-      - main
-  # runs on pushed commits to any PR
-  pull_request:
-  # allow reuse of this workflow in other repos
+
   workflow_call:
     inputs:
       devops-only:
@@ -38,33 +27,22 @@ on:
         required: false
         type: string
 
-
 permissions:
-  actions: none
-  checks: none              # add custom pass/fail checks to the PR
   contents: read            # git permissions to repo pull/push
-  deployments: none
-  issues: none              # read/write to repo Issues
-  packages: none            # read/write to repo Packages (ghcr, gems, npm)
-  pull-requests: none       # read/write to repo PRs
-  repository-projects: none
-  security-events: none     # read/write to repo Security tab API
   statuses: write           # read/write to repo custom statuses and checks
-
 
 jobs:
   super-lint:
-    # Name the Job
+
     name: Super-Linter
 
-    # Set the agent to run on
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
+          # Full git history is needed to get a proper list of changed files within super-linter
           fetch-depth: 0
 
       #############################
