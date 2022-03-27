@@ -6,6 +6,13 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 
 [My video walkthrough of this repository](https://youtu.be/aXZgQM8DqXg)
 
+This repo is part of a group of my sample repos on GitHub Actions:
+
+* [bretfisher/github-actions-templates](https://github.com/BretFisher/github-actions-templates) - Main repo
+* (you are here) [bretfisher/super-linter-workflow](https://github.com/BretFisher/super-linter-workflow) - Reusable linter workflow
+* [bretfisher/docker-build-workflow](https://github.com/BretFisher/docker-build-workflow)- Reusable docker build workflow
+
+
 ## Features of this custom Super-Linter example
 
 - All the features of [Super-Linter](https://github.com/marketplace/actions/super-linter) in a *Reusable* Workflow.
