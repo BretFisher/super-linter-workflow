@@ -20,7 +20,6 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 - [My weekly YouTube Live show](https://bret.live)
 - [My courses and coupons](https://www.bretfisher.com/courses)
 
-
 ## Features of this custom Super-Linter example
 
 - All the features of [Super-Linter](https://github.com/marketplace/actions/super-linter) in a *Reusable* Workflow.
