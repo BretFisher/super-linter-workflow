@@ -6,11 +6,19 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 
 [My video walkthrough of this repository](https://youtu.be/aXZgQM8DqXg)
 
-This repo is part of a group of my sample repos on GitHub Actions:
+## This repository is part of my example repos on GitHub Actions
 
-- [bretfisher/github-actions-templates](https://github.com/BretFisher/github-actions-templates) - Main repo
-- (you are here) [bretfisher/super-linter-workflow](https://github.com/BretFisher/super-linter-workflow) - Reusable linter workflow
+- (you are here) [bretfisher/github-actions-templates](https://github.com/BretFisher/github-actions-templates) - Main repository
+- [bretfisher/super-linter-workflow](https://github.com/BretFisher/super-linter-workflow) - Reusable linter workflow
 - [bretfisher/docker-build-workflow](https://github.com/BretFisher/docker-build-workflow)- Reusable docker build workflow
+- [bretfisher/allhands22](https://github.com/BretFisher/github-actions-templates) - Step by step example of a Docker workflow
+- [My full list of container examples and tools](https://github.com/bretfisher)
+
+## 🎉🎉🎉 Join my container DevOps community 🎉🎉🎉
+
+- [My "Vital DevOps" Discord server](https://devops.fan)
+- [My weekly YouTube Live show](https://bret.live)
+- [My courses and coupons](https://www.bretfisher.com/courses)
 
 
 ## Features of this custom Super-Linter example
