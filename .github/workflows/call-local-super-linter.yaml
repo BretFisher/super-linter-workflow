@@ -17,7 +17,7 @@ jobs:
     
     name: Call Super-Linter
         
-    uses: ./.github/workflows/super-linter.yaml
+    uses: ./.github/workflows/reusable-super-linter.yaml
     
     permissions:
       contents: read # clone the repo to lint
