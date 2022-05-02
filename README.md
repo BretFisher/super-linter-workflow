@@ -1,6 +1,6 @@
 # Super Linter Reusable Workflow Examples
 
-[![Lint all the codes](https://github.com/BretFisher/super-linter-workflow/actions/workflows/super-linter.yaml/badge.svg)](https://github.com/BretFisher/super-linter-workflow/actions/workflows/super-linter.yaml)
+[![Lint all the codes](https://github.com/BretFisher/super-linter-workflow/actions/workflows/reusable-super-linter.yaml/badge.svg)](https://github.com/BretFisher/super-linter-workflow/actions/workflows/reusable-super-linter.yaml)
 
 The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) project is a fantastic way to lint all your file types with a single GitHub Actions Workflow. A great way to implement it everywhere is to use GHA's [Reusable Workflows](https://docs.github.com/en/actions/learn-github-actions/reusing-workflows) (see below).
 
@@ -8,9 +8,9 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 
 This repo is part of a group of my sample repos on GitHub Actions:
 
-* [bretfisher/github-actions-templates](https://github.com/BretFisher/github-actions-templates) - Main repo
-* (you are here) [bretfisher/super-linter-workflow](https://github.com/BretFisher/super-linter-workflow) - Reusable linter workflow
-* [bretfisher/docker-build-workflow](https://github.com/BretFisher/docker-build-workflow)- Reusable docker build workflow
+- [bretfisher/github-actions-templates](https://github.com/BretFisher/github-actions-templates) - Main repo
+- (you are here) [bretfisher/super-linter-workflow](https://github.com/BretFisher/super-linter-workflow) - Reusable linter workflow
+- [bretfisher/docker-build-workflow](https://github.com/BretFisher/docker-build-workflow)- Reusable docker build workflow
 
 
 ## Features of this custom Super-Linter example
@@ -27,6 +27,7 @@ This repo is part of a group of my sample repos on GitHub Actions:
 
 ```yaml
 ---
+# template source: https://github.com/bretfisher/super-linter-workflow/blob/main/templates/call-super-linter.yaml
 name: Lint Code Base
 
 on:
@@ -40,23 +41,27 @@ jobs:
   call-super-linter:
 
     name: Call Super-Linter
-
-    # use Reusable Workflows to call my linter config remotely
-    # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
     
     permissions:
       contents: read # clone the repo to lint
       statuses: write #read/write to repo custom statuses
 
-    #FIXME: customize uri to point to your forked linter repository
+    ### use Reusable Workflows to call my workflow remotely
+    ### https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
+    ### you can also call workflows from inside the same repo via file path
+
+    #FIXME: customize uri to point to your own linter repository
     uses: bretfisher/super-linter-workflow/.github/workflows/super-linter.yaml@main
     
-    # Optional settings examples
+    ### Optional settings examples
     
     # with:
-    
+      ### For a DevOps-focused repository. Prevents some code-language linters from running
+      ### defaults to false
       # devops-only: false
       
+      ### A regex to exclude files from linting
+      ### defaults to empty
       # filter-regex-exclude: html/.*
 ```
 
@@ -65,3 +70,5 @@ jobs:
 Option 1: Use [nektos/act](https://github.com/nektos/act) to run an existing GitHub Action workflow on your local repository clone.
 
 Option 2: Use Docker to [run the Super-Linter image directly](https://github.com/github/super-linter/blob/main/docs/run-linter-locally.md).
+
+Option 3: Pick the linter you want to run from Super-Linter, then install it locally to run manually. If you have a linter config, be sure to point the linter to `.github/linters/*`, and also realize that super-linter has default linter configs, that may change the linters behavior inside super-linter, with [templates listed here](https://github.com/github/super-linter/tree/main/TEMPLATES).
