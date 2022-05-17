@@ -98,6 +98,8 @@ jobs:
             echo "VALIDATE_JAVASCRIPT_STANDARD=false";
             echo "VALIDATE_PYTHON_MYPY=false";
             echo "VALIDATE_PYTHON_BLACK=false";
+            echo "VALIDATE_PYTHON_FLAKE8=false";
+            echo "VALIDATE_PYTHON_ISORT=false";
             echo "VALIDATE_RUBY=false";
             echo "VALIDATE_PHP=false";
             echo "VALIDATE_CSHARP=false";
@@ -109,7 +111,7 @@ jobs:
       #############################
       # https://github.com/marketplace/actions/super-linter
       - name: Lint Code Base
-        uses: github/super-linter@v4.9.2
+        uses: github/super-linter/slim@v4.9.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # by default super-linter assumes our repo default branch doesn't change
