@@ -1,15 +1,13 @@
+---
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
 version: 2
 updates:
-  # you can add other package ecosystems here for granular control of security updates
-  # https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates
-  # bundler, docker (FROM image), git submodules, go, npm, pip, terraform, all supported
-
-  ##########################################
   # Maintain dependencies for GitHub Actions
-  ##########################################
-  # On the interval, dependabot will scan for any updates to GH Actions (steps)
-  # Then it open PRs to the default branch for each action that has an updated version
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
