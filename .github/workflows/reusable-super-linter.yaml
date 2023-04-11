@@ -111,7 +111,7 @@ jobs:
       #############################
       # https://github.com/marketplace/actions/super-linter
       - name: Lint Code Base
-        uses: github/super-linter/slim@v4.10.1
+        uses: github/super-linter/slim@v5.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # by default super-linter assumes our repo default branch doesn't change
