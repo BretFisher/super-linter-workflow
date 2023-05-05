@@ -1,7 +1,5 @@
 # Super Linter Reusable Workflow Examples
 
-[![Lint](https://github.com/BretFisher/super-linter-workflow/actions/workflows/call-local-super-linter.yaml/badge.svg)](https://github.com/BretFisher/super-linter-workflow/actions/workflows/call-local-super-linter.yaml)
-
 The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) project is a fantastic way to lint all your file types with a single GitHub Actions Workflow. A great way to implement it everywhere is to use GHA's [Reusable Workflows](https://docs.github.com/en/actions/learn-github-actions/reusing-workflows) (see below).
 
 [My video walkthrough of this repository](https://youtu.be/aXZgQM8DqXg)
@@ -81,8 +79,9 @@ Option 3: Pick the linter you want to run from Super-Linter, then install it loc
 - [bretfisher/docker-ci-automation](https://github.com/BretFisher/docker-ci-automation) - Step by step video and example of a Docker CI workflow
 - [My full list of container examples and tools](https://github.com/bretfisher)
 
-## 🎉🎉🎉 Join my container DevOps community 🎉🎉🎉
+## 🎉🎉🎉 Join my cloud native DevOps community 🎉🎉🎉
 
-- [My "Vital DevOps" Discord server](https://devops.fan)
-- [My weekly YouTube Live show](https://bret.live)
+- [My Cloud Native DevOps Discord server](https://devops.fan)
+- [My weekly YouTube Live show](https://www.youtube.com/@BretFisher)
+- [My weekly newsletter](https://www.bretfisher.com/newsletter)
 - [My courses and coupons](https://www.bretfisher.com/courses)
