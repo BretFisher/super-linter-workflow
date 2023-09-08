@@ -11,6 +11,8 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 - Bonus: I added Job steps to correctly determine which branch to diff files with (in the case of having multiple release branches).
 - Bonus: Lints only changed files on a PR, but lints all files on merge to main (or any release) branch.
 
+> ⚠️ **DO NOT call this reusable workflow directly**, rather, use it as a template repository and fork it for your own reusable workflow. I might change this workflow at anytime, based on new GHA features or learnings, and your calling workflow might break. ⚠️
+
 ## How to reuse this example as a *Reusable* Workflow
 
 1. Fork this repository for you to customize your linters in a single location for your org/projects.
