@@ -63,6 +63,11 @@ jobs:
       ### A regex to exclude files from linting
       ### defaults to empty
       # filter-regex-exclude: html/.*
+
+      ### For adjusting the runner's configuration
+      ### defaults to '["ubuntu-latest"]'
+      # runner-labels: '["self-hosted", "Linux"]'
+
 ```
 
 ## How to run Super-Linter locally

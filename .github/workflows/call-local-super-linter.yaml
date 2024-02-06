@@ -5,6 +5,9 @@
 
 name: Lint
 
+# disable all permissions by default. We will enable necessary permissions in a job
+permissions: {}
+
 on:
   push:
     branches:
@@ -23,6 +26,8 @@ jobs:
     name: Call Super-Linter
         
     uses: ./.github/workflows/reusable-super-linter.yaml
+#    with:
+#      runner-labels: '["self-hosted", "Linux"]'
     
     permissions:
       contents: read # clone the repo to lint

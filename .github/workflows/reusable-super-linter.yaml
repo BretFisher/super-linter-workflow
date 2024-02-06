@@ -26,6 +26,11 @@ on:
         description: A regex to exclude files from linting
         required: false
         type: string
+      runner-labels:
+        description: 'runs-on override (format: ''["self-hosted", "Linux"]'')'
+        required: false
+        type: string
+        default: '["ubuntu-latest"]'
 
 permissions:
   contents: read            # git permissions to repo pull/push
@@ -36,7 +41,7 @@ jobs:
 
     name: Super-Linter
 
-    runs-on: ubuntu-latest
+    runs-on: "${{ fromJSON(inputs.runner-labels) }}"
 
     steps:
       - name: Checkout Code
