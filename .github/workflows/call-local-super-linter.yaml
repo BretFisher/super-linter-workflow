@@ -19,11 +19,15 @@ concurrency:
 
 jobs:
   call-super-linter:
-    
     name: Call Super-Linter
-        
+
     uses: ./.github/workflows/reusable-super-linter.yaml
-    
+    with:
+      # For a DevOps-focused repository. Prevents some code-language linters from running
+      extra-envs: |
+        VALIDATE_TRIVY=false
+
     permissions:
       contents: read # clone the repo to lint
       statuses: write #read/write to repo custom statuses
+

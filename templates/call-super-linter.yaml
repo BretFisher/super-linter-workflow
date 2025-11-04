@@ -3,7 +3,6 @@
 name: Lint Code Base
 
 on:
-
   # run anytime a PR is merged to main or a direct push to main
   push:
     branches: [main]
@@ -18,7 +17,6 @@ concurrency:
 
 jobs:
   call-super-linter:
-
     name: Call Super-Linter
 
     permissions:
@@ -35,10 +33,17 @@ jobs:
     ### Optional settings examples
 
     # with:
-      ### For a DevOps-focused repository. Prevents some code-language linters from running
-      ### defaults to false
-      # devops-only: false
+    ### For a DevOps-focused repository. Prevents some code-language linters from running
+    ### defaults to false
+    # devops-only: false
 
-      ### A regex to exclude files from linting
-      ### defaults to empty
-      # filter-regex-exclude: html/.*
+    ### A regex to exclude files from linting
+    ### defaults to empty
+    # filter-regex-exclude: html/.*
+    #
+    ### Additional environment variables to pass to super-linter (one per line)
+    # extra-envs: |
+    #   VALIDATE_DOCKERFILE=false
+    #   VALIDATE_JSCPD=false
+    #   VALIDATE_TRIVY=false
+
