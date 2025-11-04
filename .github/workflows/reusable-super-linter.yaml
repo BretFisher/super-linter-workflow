@@ -30,15 +30,19 @@ on:
         required: false
         type: string
 
-permissions:
-  contents: read # git permissions to repo pull/push
-  statuses: write # read/write to repo custom statuses and checks
+# reset permsissions to none at the workflow level
+# we'll set them at the job level below
+permissions: {}
 
 jobs:
   super-lint:
     name: Super-Linter
 
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # git permissions to repo pull/push
+      statuses: write # read/write to repo custom statuses and checks
 
     steps:
       - name: Checkout Code
