@@ -6,14 +6,14 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 
 ## Features of this custom Super-Linter example
 
-- All the features of [Super-Linter](https://github.com/marketplace/actions/super-linter) in a *Reusable* Workflow.
+- All the features of [Super-Linter](https://github.com/marketplace/actions/super-linter) in a _Reusable_ Workflow.
 - Bonus: Optionally turn off non-DevOps linters (CSS, JS, HTML, etc.) when you want to ignore code (in my case it's to ignore sample code I stick in DevOps projects).
 - Bonus: I added Job steps to correctly determine which branch to diff files with (in the case of having multiple release branches).
 - Bonus: Lints only changed files on a PR, but lints all files on merge to main (or any release) branch.
 
 > ⚠️ **DO NOT call this reusable workflow directly**, rather, use it as a template repository and fork it for your own reusable workflow. I might change this workflow at anytime, based on new GHA features or learnings, and your calling workflow might break. ⚠️
 
-## How to reuse this example as a *Reusable* Workflow
+## How to reuse this example as a _Reusable_ Workflow
 
 1. Fork this repository for you to customize your linters in a single location for your org/projects.
 2. Add a new workflow to all your other repositories and paste in this YAML to call the central-repos reusable workflow.
@@ -24,7 +24,6 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 name: Lint Code Base
 
 on:
-
   # run anytime a PR is merged to main or a direct push to main
   push:
     branches: [main]
@@ -39,7 +38,6 @@ concurrency:
 
 jobs:
   call-super-linter:
-
     name: Call Super-Linter
 
     permissions:
@@ -56,13 +54,13 @@ jobs:
     ### Optional settings examples
 
     # with:
-      ### For a DevOps-focused repository. Prevents some code-language linters from running
-      ### defaults to false
-      # devops-only: false
+    ### For a DevOps-focused repository. Prevents some code-language linters from running
+    ### defaults to false
+    # devops-only: false
 
-      ### A regex to exclude files from linting
-      ### defaults to empty
-      # filter-regex-exclude: html/.*
+    ### A regex to exclude files from linting
+    ### defaults to empty
+    # filter-regex-exclude: html/.*
 ```
 
 ## How to run Super-Linter locally

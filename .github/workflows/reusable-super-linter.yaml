@@ -47,6 +47,7 @@ jobs:
         with:
           # Full git history is needed to get a proper list of changed files within super-linter
           fetch-depth: 0
+          persist-credentials: false
 
       # Pass in custom environment variables from the calling workflow
       - name: Set EXTRA_ENVS
@@ -63,8 +64,8 @@ jobs:
         if: ${{ github.base_ref != '' }}
         run: |
           # shellcheck disable=2086
-          echo "DEFAULT_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-          echo "this is a PR branch. Let's only lint the files that are changed against the target branch '${{ github.base_ref }}'"
+          echo "DEFAULT_BRANCH=${GITHUB_BASE_REF}" >> $GITHUB_ENV
+          echo "this is a PR branch. Let's only lint the files that are changed against the target branch '${GITHUB_BASE_REF}'"
 
       - name: Set DEFAULT_BRANCH to current branch
         # if base_ref has no value, this is just a commit on a branch
@@ -74,7 +75,7 @@ jobs:
         if: ${{ github.base_ref == '' }}
         run: |
           # shellcheck disable=2086
-          echo "DEFAULT_BRANCH=$(echo '${{ github.ref }}' | sed 's/refs\/heads\///')" >> $GITHUB_ENV
+          echo "DEFAULT_BRANCH=$(echo '${GITHUB_REF}' | sed 's/refs\/heads\///')" >> $GITHUB_ENV
           echo "this is just a branch push, not a PR."
 
       # used as a debug step to ensure we're only linting all files on release branches
@@ -88,8 +89,10 @@ jobs:
         run: |
           # shellcheck disable=2086
           {
-            echo "FILTER_REGEX_EXCLUDE=${{ inputs.filter-regex-exclude }}" >> $GITHUB_ENV
+            echo "FILTER_REGEX_EXCLUDE=${INPUTS_FILTER_REGEX_EXCLUDE}" >> $GITHUB_ENV
           }
+        env:
+          INPUTS_FILTER_REGEX_EXCLUDE: ${{ inputs.filter-regex-exclude }}
 
       # disable non-DevOps focused linters that might run on sample code or 3rd party code
       # these env's will get pass to the next step

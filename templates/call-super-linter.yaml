@@ -46,4 +46,3 @@ jobs:
     #   VALIDATE_DOCKERFILE=false
     #   VALIDATE_JSCPD=false
     #   VALIDATE_TRIVY=false
-
