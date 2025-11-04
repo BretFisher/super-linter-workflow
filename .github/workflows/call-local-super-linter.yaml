@@ -17,13 +17,17 @@ concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 
-permissions:
-  contents: read # clone the repo to lint
-  statuses: write #read/write to repo custom statuses
+# reset permsissions to none at the workflow level
+# we'll set them at the job level below
+permissions: {}
 
 jobs:
   call-super-linter:
     name: Call Super-Linter
+
+    permissions:
+      contents: read # clone the repo to lint
+      statuses: write #read/write to repo custom statuses
 
     uses: ./.github/workflows/reusable-super-linter.yaml
     with:
@@ -33,8 +37,3 @@ jobs:
         VALIDATE_DOCKERFILE_HADOLINT=false
       # For a DevOps-focused repository. Prevents some code-language linters from running
       devops-only: true
-
-    permissions:
-      contents: read # clone the repo to lint
-      statuses: write #read/write to repo custom statuses
-
