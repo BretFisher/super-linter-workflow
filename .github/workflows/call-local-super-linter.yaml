@@ -27,10 +27,11 @@ jobs:
 
     uses: ./.github/workflows/reusable-super-linter.yaml
     with:
+      # for a sample repo, avoid picking on the Dockerfile
+      extra-envs: |
+        VALIDATE_TRIVY=false
+        VALIDATE_DOCKERFILE_HADOLINT=false
       # For a DevOps-focused repository. Prevents some code-language linters from running
-      # extra-envs: |
-      #   VALIDATE_TRIVY=false
-      #   VALIDATE_DOCKERFILE_HADOLINT=false
       devops-only: true
 
     permissions:

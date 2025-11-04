@@ -116,14 +116,6 @@ jobs:
         run: |
           printf '%s\n' "$EXTRA_ENVS" >> "$GITHUB_ENV"
 
-      - name: TEMP just test extra-envs
-        if: ${{ inputs.extra-envs }}
-        run: |
-          echo "inputs.extra-envs is set to: ${{ inputs.extra-envs }}"
-          echo "Printing VALIDATE_TRIVY value from GITHUB_ENV: $VALIDATE_TRIVY"
-          echo "Printing all VALIDATE_* envs from GITHUB_ENV:"
-          printenv | grep VALIDATE_ || echo "no VALIDATE_* envs set"
-
       #############################
       # Run many Linters against changed files on PRs, and ALL files on commit to release branch
       #############################
