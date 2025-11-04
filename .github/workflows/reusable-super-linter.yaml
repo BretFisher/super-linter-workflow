@@ -57,7 +57,6 @@ jobs:
         # we pass string between job steps by echoing to $GITHUB_ENV, making it available in $env later
         if: ${{ github.base_ref != '' }}
         run: |
-          # shellcheck disable=2086
           echo "DEFAULT_BRANCH=${GITHUB_BASE_REF}" >> $GITHUB_ENV
           echo "this is a PR branch. Let's only lint the files that are changed against the target branch '${GITHUB_BASE_REF}'"
 
@@ -68,8 +67,7 @@ jobs:
         # we pass strings between job steps by echoing to $GITHUB_ENV, making it available in $env later
         if: ${{ github.base_ref == '' }}
         run: |
-          # shellcheck disable=2086
-          echo "DEFAULT_BRANCH=$(echo "${GITHUB_REF}" | sed 's/refs\/heads\///')" >> $GITHUB_ENV
+          echo "DEFAULT_BRANCH=$(echo "$GITHUB_REF" | sed 's/refs\/heads\///')" >> $GITHUB_ENV
           echo "this is just a branch push, not a PR."
 
       # used as a debug step to ensure we're only linting all files on release branches
@@ -81,7 +79,6 @@ jobs:
       - name: FILTER_REGEX_EXCLUDE
         if: ${{ inputs.filter-regex-exclude }}
         run: |
-          # shellcheck disable=2086
           {
             echo "FILTER_REGEX_EXCLUDE=${INPUTS_FILTER_REGEX_EXCLUDE}" >> $GITHUB_ENV
           }
@@ -93,7 +90,6 @@ jobs:
       - name: Disable non-DevOps linters
         if: ${{ inputs.devops-only == true }}
         run: |
-          # shellcheck disable=2086
           { 
             echo "VALIDATE_CSS=false"; 
             echo "VALIDATE_HTML=false"; 
@@ -114,14 +110,17 @@ jobs:
       # Pass in custom environment variables from the calling workflow
       - name: Set EXTRA_ENVS
         if: ${{ inputs.extra-envs }}
+        shell: bash
+        env:
+          EXTRA_ENVS: ${{ inputs.extra-envs }}
         run: |
-          printf '%s\n' "${INPUTS_EXTRA_ENVS}" >> "$GITHUB_ENV"
+          printf '%s\n' "$EXTRA_ENVS" >> "$GITHUB_ENV"
 
       - name: TEMP just test extra-envs
         if: ${{ inputs.extra-envs }}
         run: |
-          echo "inputs.extra-envs is set to: ${INPUTS_EXTRA_ENVS}"
-          echo "Printing VALIDATE_TRIVY value from GITHUB_ENV: ${VALIDATE_TRIVY}"
+          echo "inputs.extra-envs is set to: ${{ inputs.extra-envs }}"
+          echo "Printing VALIDATE_TRIVY value from GITHUB_ENV: $VALIDATE_TRIVY"
           echo "Printing all VALIDATE_* envs from GITHUB_ENV:"
           printenv | grep VALIDATE_ || echo "no VALIDATE_* envs set"
 

@@ -30,6 +30,7 @@ jobs:
       # For a DevOps-focused repository. Prevents some code-language linters from running
       extra-envs: |
         VALIDATE_TRIVY=false
+        VALIDATE_DOCKERFILE_HADOLINT=false
       devops-only: true
 
     permissions:
