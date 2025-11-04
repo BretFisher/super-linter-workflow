@@ -14,7 +14,6 @@ name: Lint all the codes
 #
 
 on:
-
   workflow_call:
     inputs:
       devops-only:
@@ -26,24 +25,28 @@ on:
         description: A regex to exclude files from linting
         required: false
         type: string
+      extra-envs:
+        description: Additional environment variables to pass to super-linter (one per line)
+        required: false
+        type: string
 
 permissions:
-  contents: read            # git permissions to repo pull/push
-  statuses: write           # read/write to repo custom statuses and checks
+  contents: read # git permissions to repo pull/push
+  statuses: write # read/write to repo custom statuses and checks
 
 jobs:
   super-lint:
-
     name: Super-Linter
 
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v5.0.0
         with:
           # Full git history is needed to get a proper list of changed files within super-linter
           fetch-depth: 0
+          persist-credentials: false
 
       #############################
       # custom DEFAULT_BRANCH for repos where PR target isn't always main/master
@@ -54,9 +57,8 @@ jobs:
         # we pass string between job steps by echoing to $GITHUB_ENV, making it available in $env later
         if: ${{ github.base_ref != '' }}
         run: |
-          # shellcheck disable=2086
-          echo "DEFAULT_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-          echo "this is a PR branch. Let's only lint the files that are changed against the target branch '${{ github.base_ref }}'"
+          echo "DEFAULT_BRANCH=${GITHUB_BASE_REF}" >> "$GITHUB_ENV"
+          echo "this is a PR branch. Let's only lint the files that are changed against the target branch '${GITHUB_BASE_REF}'"
 
       - name: Set DEFAULT_BRANCH to current branch
         # if base_ref has no value, this is just a commit on a branch
@@ -65,8 +67,7 @@ jobs:
         # we pass strings between job steps by echoing to $GITHUB_ENV, making it available in $env later
         if: ${{ github.base_ref == '' }}
         run: |
-          # shellcheck disable=2086
-          echo "DEFAULT_BRANCH=$(echo '${{ github.ref }}' | sed 's/refs\/heads\///')" >> $GITHUB_ENV
+          echo "DEFAULT_BRANCH=$(echo "$GITHUB_REF" | sed 's/refs\/heads\///')" >> "$GITHUB_ENV"
           echo "this is just a branch push, not a PR."
 
       # used as a debug step to ensure we're only linting all files on release branches
@@ -78,17 +79,17 @@ jobs:
       - name: FILTER_REGEX_EXCLUDE
         if: ${{ inputs.filter-regex-exclude }}
         run: |
-          # shellcheck disable=2086
           {
-            echo "FILTER_REGEX_EXCLUDE=${{ inputs.filter-regex-exclude }}" >> $GITHUB_ENV
+            echo "FILTER_REGEX_EXCLUDE=${INPUTS_FILTER_REGEX_EXCLUDE}" >> "$GITHUB_ENV"
           }
+        env:
+          INPUTS_FILTER_REGEX_EXCLUDE: ${{ inputs.filter-regex-exclude }}
 
       # disable non-DevOps focused linters that might run on sample code or 3rd party code
       # these env's will get pass to the next step
       - name: Disable non-DevOps linters
         if: ${{ inputs.devops-only == true }}
         run: |
-          # shellcheck disable=2086
           { 
             echo "VALIDATE_CSS=false"; 
             echo "VALIDATE_HTML=false"; 
@@ -104,14 +105,23 @@ jobs:
             echo "VALIDATE_PHP=false";
             echo "VALIDATE_CSHARP=false";
 
-          } >> $GITHUB_ENV
+          } >> "$GITHUB_ENV"
+
+      # Pass in custom environment variables from the calling workflow
+      - name: Set EXTRA_ENVS
+        if: ${{ inputs.extra-envs }}
+        shell: bash
+        env:
+          EXTRA_ENVS: ${{ inputs.extra-envs }}
+        run: |
+          printf '%s\n' "$EXTRA_ENVS" >> "$GITHUB_ENV"
 
       #############################
       # Run many Linters against changed files on PRs, and ALL files on commit to release branch
       #############################
       # https://github.com/marketplace/actions/super-linter
       - name: Lint Code Base
-        uses: super-linter/super-linter/slim@v8.2.1
+        uses: super-linter/super-linter/slim@2bdd90ed3262e023ac84bf8fe35dc480721fc1f2 #v8.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # by default super-linter assumes our repo default branch doesn't change
