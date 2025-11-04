@@ -54,6 +54,14 @@ jobs:
         run: |
           printf '%s\n' "${INPUTS_EXTRA_ENVS}" >> "$GITHUB_ENV"
 
+      - name: TEMP just test extra_envs
+        if: ${{ inputs.extra-envs }}
+        run: |
+          echo "EXTRA_ENVS is set to:"
+          echo "${{ inputs.extra-envs }}"
+          echo "Printing VALIDATE_TRIVY from GITHUB_ENV:"
+          echo VALIDATE_TRIVY ${{ env.VALIDATE_TRIVY }}
+
       #############################
       # custom DEFAULT_BRANCH for repos where PR target isn't always main/master
       #############################
