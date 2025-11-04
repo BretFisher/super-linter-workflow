@@ -37,8 +37,3 @@ jobs:
         VALIDATE_DOCKERFILE_HADOLINT=false
       # For a DevOps-focused repository. Prevents some code-language linters from running
       devops-only: true
-
-    permissions:
-      contents: read # clone the repo to lint
-      statuses: write #read/write to repo custom statuses
-
