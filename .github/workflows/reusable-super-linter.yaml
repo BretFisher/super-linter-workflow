@@ -49,19 +49,6 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      # Pass in custom environment variables from the calling workflow
-      - name: Set EXTRA_ENVS
-        run: |
-          printf '%s\n' "${INPUTS_EXTRA_ENVS}" >> "$GITHUB_ENV"
-
-      - name: TEMP just test extra_envs
-        if: ${{ inputs.extra-envs }}
-        run: |
-          echo "EXTRA_ENVS is set to:"
-          echo "${{ inputs.extra-envs }}"
-          echo "Printing VALIDATE_TRIVY from GITHUB_ENV:"
-          echo VALIDATE_TRIVY ${{ env.VALIDATE_TRIVY }}
-
       #############################
       # custom DEFAULT_BRANCH for repos where PR target isn't always main/master
       #############################
@@ -124,6 +111,21 @@ jobs:
             echo "VALIDATE_CSHARP=false";
 
           } >> $GITHUB_ENV
+
+      # Pass in custom environment variables from the calling workflow
+      - name: Set EXTRA_ENVS
+        run: |
+          printf '%s\n' "${{ inputs.extra_envs }}" >> "$GITHUB_ENV"
+
+      - name: TEMP just test extra_envs
+        if: ${{ inputs.extra-envs }}
+        run: |
+          echo "EXTRA_ENVS is set to:"
+          echo "${{ inputs.extra-envs }}"
+          echo "Printing VALIDATE_TRIVY from GITHUB_ENV:"
+          echo VALIDATE_TRIVY ${{ env.VALIDATE_TRIVY }}
+          echo "Printing all VALIDATE_* envs from GITHUB_ENV:"
+          printenv | grep VALIDATE_ || echo "no VALIDATE_* envs set"
 
       #############################
       # Run many Linters against changed files on PRs, and ALL files on commit to release branch

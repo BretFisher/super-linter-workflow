@@ -26,6 +26,7 @@ jobs:
       # For a DevOps-focused repository. Prevents some code-language linters from running
       extra-envs: |
         VALIDATE_TRIVY=false
+      devops-only: true
 
     permissions:
       contents: read # clone the repo to lint
