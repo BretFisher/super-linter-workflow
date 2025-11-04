@@ -75,7 +75,7 @@ Option 3: Pick the linter you want to run from Super-Linter, then install it loc
 
 - [bretfisher/github-actions-templates](https://github.com/BretFisher/github-actions-templates) - Main repository
 - (you are here) [bretfisher/super-linter-workflow](https://github.com/BretFisher/super-linter-workflow) - Reusable linter workflow
-- [bretfisher/docker-build-workflow](https://github.com/BretFisher/docker-build-workflow)- Reusable docker build workflow
+- [bretfisher/docker-build-workflow](https://github.com/BretFisher/docker-build-workflow)- Reusable Docker build workflow
 - [bretfisher/docker-ci-automation](https://github.com/BretFisher/docker-ci-automation) - Step by step video and example of a Docker CI workflow
 - [My full list of container examples and tools](https://github.com/bretfisher)
 

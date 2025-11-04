@@ -69,7 +69,7 @@ jobs:
         if: ${{ github.base_ref == '' }}
         run: |
           # shellcheck disable=2086
-          echo "DEFAULT_BRANCH=$(echo '${GITHUB_REF}' | sed 's/refs\/heads\///')" >> $GITHUB_ENV
+          echo "DEFAULT_BRANCH=$(echo "${GITHUB_REF}" | sed 's/refs\/heads\///')" >> $GITHUB_ENV
           echo "this is just a branch push, not a PR."
 
       # used as a debug step to ensure we're only linting all files on release branches
@@ -115,13 +115,13 @@ jobs:
       - name: Set EXTRA_ENVS
         if: ${{ inputs.extra-envs }}
         run: |
-          printf '%s\n' "${{ inputs.extra-envs }}" >> "$GITHUB_ENV"
+          printf '%s\n' "${INPUTS_EXTRA_ENVS}" >> "$GITHUB_ENV"
 
       - name: TEMP just test extra-envs
         if: ${{ inputs.extra-envs }}
         run: |
-          echo "inputs.extra-envs is set to: ${{ inputs.extra-envs }}"
-          echo "Printing VALIDATE_TRIVY value from GITHUB_ENV: ${{ env.VALIDATE_TRIVY }}"
+          echo "inputs.extra-envs is set to: ${INPUTS_EXTRA_ENVS}"
+          echo "Printing VALIDATE_TRIVY value from GITHUB_ENV: ${VALIDATE_TRIVY}"
           echo "Printing all VALIDATE_* envs from GITHUB_ENV:"
           printenv | grep VALIDATE_ || echo "no VALIDATE_* envs set"
 

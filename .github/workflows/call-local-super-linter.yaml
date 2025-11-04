@@ -17,6 +17,10 @@ concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 
+permissions:
+  contents: read # clone the repo to lint
+  statuses: write #read/write to repo custom statuses
+
 jobs:
   call-super-linter:
     name: Call Super-Linter
