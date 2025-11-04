@@ -29,7 +29,6 @@ on:
         description: Additional environment variables to pass to super-linter (one per line)
         required: false
         type: string
-        default: ""
 
 permissions:
   contents: read # git permissions to repo pull/push
@@ -114,16 +113,15 @@ jobs:
 
       # Pass in custom environment variables from the calling workflow
       - name: Set EXTRA_ENVS
+        if: ${{ inputs.extra-envs }}
         run: |
           printf '%s\n' "${{ inputs.extra_envs }}" >> "$GITHUB_ENV"
 
       - name: TEMP just test extra_envs
         if: ${{ inputs.extra-envs }}
         run: |
-          echo "EXTRA_ENVS is set to:"
-          echo "${{ inputs.extra-envs }}"
-          echo "Printing VALIDATE_TRIVY from GITHUB_ENV:"
-          echo VALIDATE_TRIVY ${{ env.VALIDATE_TRIVY }}
+          echo "EXTRA_ENVS is set to: ${{ inputs.extra-envs }}"
+          echo "Printing VALIDATE_TRIVY value from GITHUB_ENV: ${{ env.VALIDATE_TRIVY }}"
           echo "Printing all VALIDATE_* envs from GITHUB_ENV:"
           printenv | grep VALIDATE_ || echo "no VALIDATE_* envs set"
 
