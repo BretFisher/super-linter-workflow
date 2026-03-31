@@ -98,7 +98,7 @@ jobs:
       # disable non-DevOps-focused linters that might run on sample code or 3rd-party code
       # these env vars will be passed to the next step
       - name: Disable non-DevOps linters
-        if: ${{ inputs.devops-only == true }}
+        if: ${{ hashFiles('.github/super-linter.env') == '' && inputs.devops-only == true }}
         run: |
           { 
             echo "VALIDATE_CSS=false"; 
@@ -119,7 +119,7 @@ jobs:
 
       # Pass in custom environment variables from the calling workflow
       - name: Set EXTRA_ENVS
-        if: ${{ inputs.extra-envs }}
+        if: ${{ hashFiles('.github/super-linter.env') == '' && inputs.extra-envs != '' }}
         shell: bash
         env:
           EXTRA_ENVS: ${{ inputs.extra-envs }}
