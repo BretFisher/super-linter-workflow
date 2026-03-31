@@ -89,12 +89,12 @@ jobs:
           }
         env:
           INPUTS_FILTER_REGEX_EXCLUDE: ${{ inputs.filter-regex-exclude }}
-    
+
       - name: Load super-linter.env config
         if: hashFiles('.github/super-linter.env') != ''
         run: |
           sed -E 's/^[[:space:]]+//; /^[[:space:]]*(#|$)/d' .github/super-linter.env >> "$GITHUB_ENV"
-   
+
       # disable non-DevOps-focused linters that might run on sample code or 3rd-party code
       # these env vars will be passed to the next step
       - name: Disable non-DevOps linters
