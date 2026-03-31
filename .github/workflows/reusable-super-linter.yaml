@@ -42,6 +42,7 @@ jobs:
 
     permissions:
       contents: read # git permissions to repo pull/push
+      pull-requests: write # create a summary comment in PR
       statuses: write # read/write to repo custom statuses and checks
 
     steps:
