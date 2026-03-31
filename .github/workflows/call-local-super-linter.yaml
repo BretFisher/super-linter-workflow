@@ -1,6 +1,6 @@
 ---
 # THIS IS NOT A TEMPLATE.
-# This is just for linting the gha-workflows repo itself.
+# This is just for linting the gha-workflows repository itself.
 # We call the reusable workflow from its file path.
 
 name: Lint
@@ -26,9 +26,9 @@ jobs:
     name: Call Super-Linter
 
     permissions:
-      contents: read # clone the repo to lint
+      contents: read # clone the repository to lint
       pull-requests: write # create a summary comment in PR
-      statuses: write #read/write to repo custom statuses
+      statuses: write #read/write to repository custom statuses
 
     uses: ./.github/workflows/reusable-super-linter.yaml
     with:

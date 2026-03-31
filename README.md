@@ -15,13 +15,13 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 
 ## **Breaking Change 2026-03-31**
 
-As of Super-Linter v6 (8/2024), it needs `pull-request: write` permissions by default to create a summary comment in the PR. Ensure your "calling" and "called" reusable workflows are set to the minimum permissions below. And also a friendly reminder to fork this repo and call it from your other repos rather than calling this repository's reusable workflow directly, which doesn't have releases or versions to limit the blast radius of breaking changes like this one. I also realize the irony that any time you fork my other repositories, that repo likely calls this repo, thus ensnaring you in this problem... but hey, I bet you learned something from the Actions failing! 😏 🤷‍♂️
+As of Super-Linter v6 (8/2024), it needs `pull-request: write` permissions by default to create a summary comment in the PR. Ensure your "calling" and "called" reusable workflows are set to the minimum permissions below. And also a friendly reminder to fork this repository and call it from your other repos rather than calling this repository's reusable workflow directly, which doesn't have releases or versions to limit the blast radius of breaking changes like this one. I also realize the irony that any time you fork my other repositories, that likely calls this repository, thus ensnaring you in this problem... but hey, I bet you learned something from the Actions failing! 😏 🤷‍♂️
 
 ```yaml
-    permissions:
-      contents: read # clone the repo to lint
-      pull-requests: write # create a summary comment in PR
-      statuses: write # read/write to repo custom statuses
+permissions:
+  contents: read # clone the repository to lint
+  pull-requests: write # create a summary comment in PR
+  statuses: write # read/write to repository custom statuses
 ```
 
 ## How to reuse this example as a _Reusable_ Workflow
@@ -56,13 +56,13 @@ jobs:
     name: Call Super-Linter
 
     permissions:
-      contents: read # clone the repo to lint
+      contents: read # clone the repository to lint
       pull-requests: write # create a summary comment in PR
-      statuses: write # read/write to repo custom statuses
+      statuses: write # read/write to repository custom statuses
 
     ### use Reusable Workflows to call my workflow remotely
     ### https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
-    ### you can also call workflows from inside the same repo via file path
+    ### you can also call workflows from inside the same repository via file path
 
     # FIXME: customize uri to point to your own reusable linter repository
     # NOTE: zizmor scanner rule ignore added because we control sha pins via reusable workflow, not calling workflow
