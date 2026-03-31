@@ -94,7 +94,7 @@ jobs:
         run: grep -v '^#' .github/super-linter.env >> "$GITHUB_ENV"
    
       # disable non-DevOps-focused linters that might run on sample code or 3rd-party code
-      # these env's will get passed to the next step
+      # these env vars will be passed to the next step
       - name: Disable non-DevOps linters
         if: ${{ inputs.devops-only == true }}
         run: |
