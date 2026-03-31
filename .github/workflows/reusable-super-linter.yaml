@@ -30,7 +30,7 @@ on:
         required: false
         type: string
 
-# reset permsissions to none at the workflow level
+# reset permissions to none at the workflow level
 # we'll set them at the job level below
 permissions: {}
 
@@ -42,6 +42,7 @@ jobs:
 
     permissions:
       contents: read # git permissions to repo pull/push
+      pull-requests: write # create a summary comment in PR
       statuses: write # read/write to repo custom statuses and checks
 
     steps:
@@ -89,8 +90,13 @@ jobs:
         env:
           INPUTS_FILTER_REGEX_EXCLUDE: ${{ inputs.filter-regex-exclude }}
 
-      # disable non-DevOps focused linters that might run on sample code or 3rd party code
-      # these env's will get pass to the next step
+      - name: Load super-linter.env config
+        if: hashFiles('.github/super-linter.env') != ''
+        run: |
+          sed -E 's/^[[:space:]]+//; /^[[:space:]]*(#|$)/d' .github/super-linter.env >> "$GITHUB_ENV"
+
+      # disable non-DevOps-focused linters that might run on sample code or 3rd-party code
+      # these env vars will be passed to the next step
       - name: Disable non-DevOps linters
         if: ${{ inputs.devops-only == true }}
         run: |
