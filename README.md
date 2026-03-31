@@ -57,11 +57,12 @@ jobs:
     # NOTE: zizmor scanner rule ignore added because we control sha pins via reusable workflow, not calling workflow
     uses: bretfisher/super-linter-workflow/.github/workflows/reusable-super-linter.yaml@main # zizmor: ignore[unpinned-uses]
 
+
     ### Optional settings examples
 
     # with:
     ### 1. Remember .github/super-linter.env is injected for setting linter on/off
-    
+
     ### 2. For a DevOps-focused repository. Prevents some code-language linters from running
     ### defaults to false
     # devops-only: false
