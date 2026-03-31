@@ -97,7 +97,7 @@ jobs:
 
       # disable non-DevOps-focused linters that might run on sample code or 3rd-party code
       # these env vars will be passed to the next step
-      # NOTE: Only runs if you *don't* have a super-linter.env, which is the prefered way to control linters anyway
+      # NOTE: Only runs if you *don't* have a super-linter.env, which is the preferred way to control linters anyway
       - name: Disable non-DevOps linters
         if: ${{ hashFiles('.github/super-linter.env') == '' && inputs.devops-only == true }}
         run: |
@@ -119,7 +119,7 @@ jobs:
           } >> "$GITHUB_ENV"
 
       # Pass in custom environment variables from the calling workflow
-      # NOTE: Only runs if you *don't* have a super-linter.env, which is the prefered way to control linters anyway
+      # NOTE: Only runs if you *don't* have a super-linter.env, which is the preferred way to control linters anyway
       - name: Set EXTRA_ENVS
         if: ${{ hashFiles('.github/super-linter.env') == '' && inputs.extra-envs != '' }}
         shell: bash
