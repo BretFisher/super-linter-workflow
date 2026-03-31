@@ -41,9 +41,9 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read # git permissions to repo pull/push
+      contents: read # git permissions to repository pull/push
       pull-requests: write # create a summary comment in PR
-      statuses: write # read/write to repo custom statuses and checks
+      statuses: write # read/write to repository custom statuses and checks
 
     steps:
       - name: Checkout Code
@@ -134,7 +134,7 @@ jobs:
         uses: super-linter/super-linter/slim@61abc07d755095a68f4987d1c2c3d1d64408f1f9 #v8.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # by default super-linter assumes our repo default branch doesn't change
+          # by default super-linter assumes our repository default branch doesn't change
           # and it also assumes our PRs are always against that default branch
           # for multi-trunk (releases) repos, this get the base branch from the previous steps
           # see issue https://github.com/github/super-linter/issues/1123
