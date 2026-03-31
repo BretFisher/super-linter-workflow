@@ -11,7 +11,18 @@ The GitHub [Super-Linter](https://github.com/marketplace/actions/super-linter) p
 - Bonus: I added Job steps to correctly determine which branch to diff files with (in the case of having multiple release branches).
 - Bonus: Lints only changed files on a PR, but lints all files on merge to main (or any release) branch.
 
-> ⚠️ **DO NOT call this reusable workflow directly**, rather, use it as a template repository and fork it for your own reusable workflow. I might change this workflow at anytime, based on new GHA features or learnings, and your calling workflow might break. ⚠️
+> ⚠️ **DO NOT call this reusable workflow directly**, rather, use it as a template repository and fork it for your own reusable workflow. I might change this workflow at any time, based on new GHA features or learnings, and your calling workflow might break. ⚠️
+
+## **Breaking Change 2026-03-31**
+
+As of Super-Linter v6 (8/2024), it needs `pull-request: write` permissions by default to create a summary comment in the PR. Ensure your "calling" and "called" reusable workflows are set to the minimum permissions below. And also a friendly reminder to fork this repo and call it from your other repos rather than calling this repository's reusable workflow directly, which doesn't have releases or versions to limit the blast radius of breaking changes like this one. I also realize the irony that any time you fork my other repositories, that repo likely calls this repo, thus ensnaring you in this problem... but hey, I bet you learned something from the Actions failing! 😏 🤷‍♂️
+
+```yaml
+    permissions:
+      contents: read # clone the repo to lint
+      pull-requests: write # create a summary comment in PR
+      statuses: write # read/write to repo custom statuses
+```
 
 ## How to reuse this example as a _Reusable_ Workflow
 
