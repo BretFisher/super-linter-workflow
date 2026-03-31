@@ -34,8 +34,4 @@ jobs:
     with:
       # NOTE: if you have a .github/super-linter.env that also gets imported
       # for a sample repo, avoid picking on the Dockerfile
-      extra-envs: |
-        VALIDATE_TRIVY=false
-        VALIDATE_DOCKERFILE_HADOLINT=false
-      # For a DevOps-focused repository. Prevents some code-language linters from running
-      devops-only: true
+      filter-regex-exclude: AGENTS.md
