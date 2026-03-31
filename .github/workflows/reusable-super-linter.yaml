@@ -97,8 +97,9 @@ jobs:
 
       # disable non-DevOps-focused linters that might run on sample code or 3rd-party code
       # these env vars will be passed to the next step
+      # NOTE: Only runs if you *don't* have a super-linter.env, which is the preferred way to control linters anyway
       - name: Disable non-DevOps linters
-        if: ${{ inputs.devops-only == true }}
+        if: ${{ hashFiles('.github/super-linter.env') == '' && inputs.devops-only == true }}
         run: |
           { 
             echo "VALIDATE_CSS=false"; 
@@ -118,8 +119,9 @@ jobs:
           } >> "$GITHUB_ENV"
 
       # Pass in custom environment variables from the calling workflow
+      # NOTE: Only runs if you *don't* have a super-linter.env, which is the preferred way to control linters anyway
       - name: Set EXTRA_ENVS
-        if: ${{ inputs.extra-envs }}
+        if: ${{ hashFiles('.github/super-linter.env') == '' && inputs.extra-envs != '' }}
         shell: bash
         env:
           EXTRA_ENVS: ${{ inputs.extra-envs }}
@@ -144,16 +146,16 @@ jobs:
           # turn off dockerfilelint, as its a dead project
           # https://github.com/replicatedhq/dockerfilelint/issues/169
           # hadolint will still run and is sufficient (no need for two linters)
-          VALIDATE_DOCKERFILE: false
+          #VALIDATE_DOCKERFILE: false
           # turn off JSCPD copy/paste detection, which results in lots of results for examples and devops repos
-          VALIDATE_JSCPD: false
+          #VALIDATE_JSCPD: false
           # turn off shfmt shell formatter as we already have shellcheck
-          VALIDATE_SHELL_SHFMT: false
+          #VALIDATE_SHELL_SHFMT: false
           # editorconfig is great, but...
           # editorconfig-linter is rather generic and file-specific linters are better
           # turn off editorconfig-checker, which flags too many false positives
-          VALIDATE_EDITORCONFIG: false
+          #VALIDATE_EDITORCONFIG: false
           # prevent Kubernetes CRD API's from causing kubeval to fail
           # also change schema location to an up-to-date list
           # https://github.com/yannh/kubernetes-json-schema/#kubeval
-          KUBERNETES_KUBEVAL_OPTIONS: --ignore-missing-schemas --schema-location https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/
+          #KUBERNETES_KUBEVAL_OPTIONS: --ignore-missing-schemas --schema-location https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/
