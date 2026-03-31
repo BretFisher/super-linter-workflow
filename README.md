@@ -42,6 +42,7 @@ jobs:
 
     permissions:
       contents: read # clone the repo to lint
+      pull-requests: write # create a summary comment in PR
       statuses: write # read/write to repo custom statuses
 
     ### use Reusable Workflows to call my workflow remotely
@@ -54,11 +55,13 @@ jobs:
     ### Optional settings examples
 
     # with:
-    ### For a DevOps-focused repository. Prevents some code-language linters from running
+    ### 1. Remember .github/super-linter.env is injected for setting linter on/off
+
+    ### 2. For a DevOps-focused repository. Prevents some code-language linters from running
     ### defaults to false
     # devops-only: false
 
-    ### A regex to exclude files from linting
+    ### 3. A regex to exclude files from linting
     ### defaults to empty
     # filter-regex-exclude: html/.*
 ```
